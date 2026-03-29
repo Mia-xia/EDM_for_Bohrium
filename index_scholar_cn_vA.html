@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+      margin: 0;
+      padding: 24px;
+      background-color: #f0f2f5;
+      color: #222;
+    }
+    .email-wrapper {
+      max-width: 640px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+    .logo-area {
+      padding: 28px 36px 20px;
+      text-align: center;
+    }
+    .header {
+      padding: 0 36px 18px;
+    }
+    .header h1 {
+      font-size: 22px;
+      margin: 0 0 14px;
+      color: #111;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+    .header p {
+      font-size: 14.5px;
+      color: #4a5568;
+      line-height: 1.85;
+      margin: 0;
+    }
+    .body-content {
+      padding: 8px 36px 0;
+    }
+    .scholar-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: linear-gradient(135deg, #f1f5ff 0%, #eef3ff 100%);
+      border: 1.5px solid #c9d6ff;
+      border-left: 6px solid #3b55d9;
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 28px;
+    }
+    .scholar-card h2 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0 0 18px;
+      color: #1d2f8a;
+    }
+    .scholar-stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .scholar-stat-item {
+      flex: 1;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid #d5ddf7;
+      border-radius: 12px;
+      padding: 14px 10px;
+    }
+    .scholar-stat-value {
+      font-size: 19px;
+      font-weight: 800;
+      color: #2942bd;
+      line-height: 1.2;
+    }
+    .scholar-stat-label {
+      font-size: 11.5px;
+      color: #718096;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .scholar-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 12px;
+      margin: 6px 0 16px;
+    }
+    .scholar-tag {
+      background: #e8edff;
+      color: #3650d5;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .scholar-preview-text {
+      font-size: 13.5px;
+      line-height: 1.95;
+      color: #4a5568;
+      border-top: 1px solid #d5ddf7;
+      padding-top: 16px;
+      margin-top: 2px;
+    }
+    .scholar-card-link-hint {
+      font-size: 12.5px;
+      color: #3650d5;
+      font-weight: 600;
+      margin-top: 12px;
+    }
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111;
+      margin: 0 0 6px;
+    }
+    .section-desc {
+      font-size: 13px;
+      color: #718096;
+      line-height: 1.7;
+      margin: 0 0 16px;
+    }
+    .paper-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+    .paper-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #f8fafd;
+      border: 1px solid #e3e8f0;
+      border-radius: 8px;
+      padding: 16px 18px 14px;
+      margin-bottom: 12px;
+    }
+    .paper-meta {
+      font-size: 12px;
+      color: #718096;
+      margin-bottom: 7px;
+      line-height: 1.7;
+    }
+    .paper-meta .journal {
+      font-weight: 600;
+      color: #4a5568;
+    }
+    .paper-meta .badge-new {
+      display: inline-block;
+      background: #e8f5e9;
+      color: #2e7d32;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 1px 7px;
+      border-radius: 10px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    .paper-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #1e3060;
+      line-height: 1.65;
+      margin-bottom: 7px;
+    }
+    .paper-authors {
+      font-size: 12px;
+      color: #718096;
+      line-height: 1.75;
+    }
+    .cta-area {
+      text-align: center;
+      padding: 20px 36px 28px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 13px 40px;
+      background: linear-gradient(135deg, #394ED4 0%, #2d3fb5 100%);
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.03em;
+    }
+    .footer {
+      background-color: #f7f9fc;
+      border-top: 1px solid #eaeef4;
+      padding: 22px 36px;
+      text-align: center;
+    }
+    .footer-contact,
+    .footer-links,
+    .footer-copy {
+      font-size: 12px;
+      color: #718096;
+      line-height: 1.8;
+    }
+    .footer a {
+      color: #394ED4;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <img src="{{trackingOpenUrl}}" alt="" style="display:none;width:1px;height:1px;">
+
+    <div class="logo-area">
+      <img src="https://cdn.dp.tech/static/img/a21a72e2bohrium_logo.png" alt="Bohrium Logo" width="160" style="display:block;width:100%;max-width:160px;height:auto;margin:0 auto;border:0;outline:none;text-decoration:none;">
+    </div>
+
+    <div class="header">
+      <h1>{{name}}教授，您好！</h1>
+      <p>
+        玻尔已为您创建专属学者主页，系统整合了您的研究方向与代表性成果，帮助同行、学生及潜在合作者更便捷地了解您的学术贡献。
+      </p>
+    </div>
+
+    <div class="body-content">
+      <a href="{{scholarPageUrl}}" target="_blank" class="scholar-card">
+        <h2>{{name}}｜专属学者主页</h2>
+        <div class="scholar-stats">
+          <div class="scholar-stat-item">
+            <div class="scholar-stat-value">{{totalCitations}}</div>
+            <div class="scholar-stat-label">总被引次数</div>
+          </div>
+          <div class="scholar-stat-item">
+            <div class="scholar-stat-value">{{hIndex}}</div>
+            <div class="scholar-stat-label">H-index</div>
+          </div>
+          <div class="scholar-stat-item">
+            <div class="scholar-stat-value">{{paperCount}}</div>
+            <div class="scholar-stat-label">发表论文数</div>
+          </div>
+        </div>
+        <div class="scholar-tags">
+          <span class="scholar-tag">{{tag1}}</span>
+          <span class="scholar-tag">{{tag2}}</span>
+          <span class="scholar-tag">{{tag3}}</span>
+        </div>
+        <div class="scholar-preview-text">{{summary}}</div>
+        <div class="scholar-card-link-hint">点击查看完整主页 &gt;</div>
+      </a>
+
+      <div class="papers-section">
+        <h3 class="section-title">代表性论文</h3>
+        <p class="section-desc">以下内容基于您的学者信息自动整理，可用于快速预览您的研究成果展示效果。</p>
+        {{#papers}}
+        <a href="{{paperUrl}}" target="_blank" class="paper-card">
+          <div class="paper-meta">
+            <span>{{publicationDate}}</span>
+            <span style="margin:0 4px;color:#d0d8e4;">·</span>
+            <span class="journal">{{journal}}</span>
+            <span class="badge-new">最新</span>
+          </div>
+          <div class="paper-title">{{title}}</div>
+          <div class="paper-authors">{{author}}</div>
+        </a>
+        {{/papers}}
+      </div>
+    </div>
+
+    <div class="cta-area">
+      <a class="cta-btn" href="{{scholarPageUrl}}" target="_blank">探索学术影响力</a>
+    </div>
+
+    <div class="footer">
+      <div class="footer-contact"><a href="mailto:support@bohrium.com">联系我们：support@bohrium.com</a></div>
+      <div class="footer-links">
+        <a href="https://cdn.dp.tech/bohrium/web/static/agreement/useragreement_inside_en.html">用户服务协议</a>
+        <span style="color:#a0aec0; margin:0 6px;">|</span>
+        <a href="https://cdn.dp.tech/bohrium/web/static/agreement/privacy_inside_en.html">隐私政策</a>
+        <span style="color:#a0aec0; margin:0 6px;">|</span>
+        <a href="{{unsubscribeUrl}}" target="_blank">退订</a>
+      </div>
+      <div class="footer-copy">Copyright © 2025 Bohrium. All rights reserved</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "bohrium-scholar-edm-toolkit",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Open-source toolkit for Bohrium scholar email preview, rendering, and local dashboard workflows.",
+  "scripts": {
+    "console": "node --experimental-strip-types app_server.ts",
+    "send:preview": "MAIL_MODE=preview node --experimental-strip-types send_email.ts",
+    "send:test": "MAIL_MODE=send node --experimental-strip-types send_email.ts",
+    "track": "node --experimental-strip-types tracking_server.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scholar EDM Console</title>
+  <style>
+    :root {
+      --bg: #eef2f7;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #d8e1ef;
+      --brand: #3552d6;
+      --brand-dark: #233ea8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Helvetica Neue", sans-serif;
+      background: radial-gradient(circle at top, #f7f9fc 0%, var(--bg) 55%);
+      color: var(--text);
+    }
+    .layout {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 28px 24px 36px;
+    }
+    .hero {
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(53, 82, 214, 0.08);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+    }
+    .panel-head {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .panel-head h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .panel-body {
+      padding: 18px 20px 20px;
+    }
+    .field {
+      margin-bottom: 14px;
+    }
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      color: var(--text);
+      background: #fbfcfe;
+    }
+    .field textarea {
+      min-height: 96px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: rgba(53, 82, 214, 0.4);
+      box-shadow: 0 0 0 4px rgba(53, 82, 214, 0.08);
+      background: #ffffff;
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+      color: #fff;
+    }
+    .secondary {
+      background: #edf2ff;
+      color: var(--brand);
+    }
+    .ghost {
+      background: #f8fafc;
+      color: #334155;
+      border: 1px solid var(--line);
+    }
+    .status {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: #334155;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    iframe {
+      width: 100%;
+      min-height: 900px;
+      border: 0;
+      background: #fff;
+    }
+    .log-list {
+      display: grid;
+      gap: 10px;
+    }
+    .section-label {
+      margin: 22px 0 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .upload-shell {
+      border: 1px dashed #b9c7ea;
+      border-radius: 14px;
+      padding: 14px;
+      background: #f8fbff;
+    }
+    .table-wrap {
+      max-height: 320px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      position: sticky;
+      top: 0;
+      background: #f8fafc;
+      z-index: 1;
+    }
+    tr.is-active {
+      background: #eef3ff;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #edf2ff;
+      color: var(--brand);
+    }
+    .log-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fbfcfe;
+    }
+    .log-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      iframe {
+        min-height: 720px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="hero">
+      <h1>Scholar EDM Console</h1>
+      <p>在本地生成学者邮件预览、发送测试邮件，并查看最近发送日志。当前默认仍使用正式环境 Bohrium scholar API。</p>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>发送设置</h2>
+        </div>
+        <div class="panel-body">
+          <div class="section-label">文件导入</div>
+          <div class="upload-shell">
+            <div class="field" style="margin-bottom:10px;">
+              <label for="uploadFile">上传 CSV / Excel</label>
+              <input id="uploadFile" type="file" accept=".csv,.xlsx,.xls">
+            </div>
+            <div class="muted" id="uploadMeta">尚未导入文件</div>
+          </div>
+
+          <div class="section-label">学者信息</div>
+          <div class="field">
+            <label for="profileUrl">学者主页 URL</label>
+            <input id="profileUrl" value="https://www.bohrium.com/scholar/2u3v734g">
+          </div>
+          <div class="field">
+            <label for="nameCh">中文名</label>
+            <input id="nameCh" value="成会明">
+          </div>
+          <div class="field">
+            <label for="nameEn">英文名</label>
+            <input id="nameEn" value="Huiming Cheng">
+          </div>
+          <div class="field">
+            <label for="recipient">测试收件人</label>
+            <input id="recipient" value="test@example.com">
+          </div>
+          <div class="field">
+            <label for="direction">研究方向</label>
+            <textarea id="direction">Graphene, Carbon Nanotubes, Chemical Vapor Deposition, Two-dimensional Materials, 2d Materials, Hydrogen Storage, Science, Multidisciplinary, Humanities And Social Sciences, Photocatalysis, Energy Storage, Doping, Water Splitting, Carbon Nanotube, Materials Science, Visible Light, Mechanical Properties, Composites, Photocatalysts, Nanotubes</textarea>
+          </div>
+          <div class="section-label">埋点配置</div>
+          <div class="mini-grid">
+            <div class="field">
+              <label for="utmSource">utm_source</label>
+              <input id="utmSource" value="gkx">
+            </div>
+            <div class="field">
+              <label for="utmMedium">utm_medium</label>
+              <input id="utmMedium" value="scholar">
+            </div>
+            <div class="field">
+              <label for="utmCampaign">utm_campaign</label>
+              <input id="utmCampaign" value="edm1">
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button class="secondary" id="previewBtn">生成预览</button>
+            <button class="primary" id="sendBtn">发送测试邮件</button>
+            <button class="ghost" id="refreshBtn">刷新发送日志</button>
+          </div>
+
+          <div class="status" id="statusBox">等待操作</div>
+        </div>
+      </div>
+
+      <div style="display:grid; gap:18px;">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>导入数据</h2>
+          </div>
+          <div class="panel-body">
+            <div class="button-row" style="margin-top:0; margin-bottom:12px;">
+              <span class="pill" id="rowCountPill">0 rows</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:64px;">选择</th>
+                    <th style="width:72px;">行号</th>
+                    <th>中文名</th>
+                    <th>英文名</th>
+                    <th>邮箱</th>
+                    <th>主页</th>
+                  </tr>
+                </thead>
+                <tbody id="rowTableBody">
+                  <tr>
+                    <td colspan="6" class="muted">上传后可在这里选择单条记录预览或发送。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>邮件预览</h2>
+          </div>
+          <div class="panel-body" style="padding:0;">
+            <iframe id="previewFrame" src=""></iframe>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>最近发送日志</h2>
+          </div>
+          <div class="panel-body">
+            <div class="log-list" id="logList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const statusBox = document.getElementById("statusBox");
+    const previewFrame = document.getElementById("previewFrame");
+    const logList = document.getElementById("logList");
+    const uploadMeta = document.getElementById("uploadMeta");
+    const rowTableBody = document.getElementById("rowTableBody");
+    const rowCountPill = document.getElementById("rowCountPill");
+    const uploadFile = document.getElementById("uploadFile");
+    let uploadedRows = [];
+    let selectedRowIndex = -1;
+
+    function collectPayload() {
+      return {
+        profileUrl: document.getElementById("profileUrl").value.trim(),
+        nameCh: document.getElementById("nameCh").value.trim(),
+        nameEn: document.getElementById("nameEn").value.trim(),
+        recipient: document.getElementById("recipient").value.trim(),
+        direction: document.getElementById("direction").value.trim(),
+        utmSource: document.getElementById("utmSource").value.trim(),
+        utmMedium: document.getElementById("utmMedium").value.trim(),
+        utmCampaign: document.getElementById("utmCampaign").value.trim(),
+      };
+    }
+
+    function fillFormFromRow(row) {
+      document.getElementById("profileUrl").value = row.profileUrl || row["学者主页"] || "";
+      document.getElementById("nameCh").value = row.nameCh || row["中文姓名"] || "";
+      document.getElementById("nameEn").value = row.nameEn || row["英文姓名"] || "";
+      document.getElementById("recipient").value = row.email || row["邮箱"] || "";
+      document.getElementById("direction").value = row.direction || row["研究方向"] || "";
+    }
+
+    function selectRow(index) {
+      selectedRowIndex = index;
+      fillFormFromRow(uploadedRows[index] || {});
+      renderTable();
+      statusBox.textContent = `已选中第 ${uploadedRows[index].rowNumber} 行，可直接生成预览或发送。`;
+    }
+
+    function truncate(text, limit = 42) {
+      if (!text) return "-";
+      return text.length > limit ? `${text.slice(0, limit)}...` : text;
+    }
+
+    function renderTable() {
+      rowCountPill.textContent = `${uploadedRows.length} rows`;
+      if (!uploadedRows.length) {
+        rowTableBody.innerHTML = '<tr><td colspan="6" class="muted">上传后可在这里选择单条记录预览或发送。</td></tr>';
+        return;
+      }
+      rowTableBody.innerHTML = uploadedRows.map((row, index) => `
+        <tr class="${selectedRowIndex === index ? "is-active" : ""}">
+          <td><button class="ghost" data-select-row="${index}" style="padding:8px 10px;">选中</button></td>
+          <td>${row.rowNumber || index + 1}</td>
+          <td>${row.nameCh || "-"}</td>
+          <td>${row.nameEn || "-"}</td>
+          <td>${row.email || "-"}</td>
+          <td title="${row.profileUrl || ""}">${truncate(row.profileUrl || "-")}</td>
+        </tr>
+      `).join("");
+      rowTableBody.querySelectorAll("[data-select-row]").forEach((button) => {
+        button.addEventListener("click", () => selectRow(Number(button.getAttribute("data-select-row"))));
+      });
+    }
+
+    async function renderLogs() {
+      const res = await fetch("/api/logs");
+      const data = await res.json();
+      const sent = (data.sent || []).slice().reverse().slice(0, 8);
+      if (!sent.length) {
+        logList.innerHTML = '<div class="muted">暂无发送记录</div>';
+        return;
+      }
+      logList.innerHTML = sent.map(item => `
+        <div class="log-item">
+          <strong>${item.email}</strong>
+          <div class="muted">scholar_id: ${item.scholar_id || "-"}</div>
+          <div class="muted">sent_at: ${item.sent_at || "-"}</div>
+          <div class="muted">status: ${item.status || "-"}</div>
+          <div class="muted">error: ${item.error_msg || "-"}</div>
+        </div>
+      `).join("");
+    }
+
+    async function runAction(action) {
+      const payload = collectPayload();
+      statusBox.textContent = action === "preview" ? "正在生成预览..." : "正在发送测试邮件...";
+      const res = await fetch(`/api/${action}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        statusBox.textContent = `失败\\n${data.error || JSON.stringify(data)}`;
+        return;
+      }
+      if (data.previewPath) {
+        previewFrame.src = `/preview?path=${encodeURIComponent(data.previewPath)}&ts=${Date.now()}`;
+      }
+      statusBox.textContent = JSON.stringify(data, null, 2);
+      await renderLogs();
+    }
+
+    async function handleUpload(file) {
+      statusBox.textContent = `正在解析 ${file.name} ...`;
+      const arrayBuffer = await file.arrayBuffer();
+      const bytes = new Uint8Array(arrayBuffer);
+      let binary = "";
+      for (let i = 0; i < bytes.length; i += 1) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      const contentBase64 = btoa(binary);
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: file.name, contentBase64 }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        statusBox.textContent = `上传失败\\n${data.error || JSON.stringify(data)}`;
+        return;
+      }
+      uploadedRows = data.rows || [];
+      selectedRowIndex = uploadedRows.length ? 0 : -1;
+      uploadMeta.textContent = `已导入 ${file.name}，共 ${uploadedRows.length} 条记录。`;
+      if (uploadedRows.length) {
+        fillFormFromRow(uploadedRows[0]);
+      }
+      renderTable();
+      statusBox.textContent = `导入成功，共 ${uploadedRows.length} 条记录。`;
+    }
+
+    document.getElementById("previewBtn").addEventListener("click", () => runAction("preview"));
+    document.getElementById("sendBtn").addEventListener("click", () => runAction("send"));
+    document.getElementById("refreshBtn").addEventListener("click", renderLogs);
+    uploadFile.addEventListener("change", (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (file) {
+        handleUpload(file);
+      }
+    });
+
+    renderTable();
+    renderLogs();
+  </script>
+</body>
+</html>

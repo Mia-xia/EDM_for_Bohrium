@@ -1,0 +1,11 @@
+.DS_Store
+.env
+__pycache__/
+*.pyc
+*.log
+.venv/
+venv/
+node_modules/
+outputs/
+tracking_log.json
+operations-*.json

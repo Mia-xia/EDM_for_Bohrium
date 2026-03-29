@@ -1,0 +1,44 @@
+{
+  "gemini": {
+    "credentials_path": "YOUR_GOOGLE_APPLICATION_CREDENTIALS.json"
+  },
+  "bohrium": {
+    "access_key": "YOUR_BOHRIUM_ACCESS_KEY"
+  },
+  "smtp": {
+    "server": "YOUR_SMTP_SERVER",
+    "port": 465,
+    "user": "YOUR_SMTP_USER",
+    "password": "YOUR_SMTP_PASSWORD"
+  },
+  "invitation_api": {
+    "enabled": false,
+    "url": "https://YOUR_INVITATION_API_HOST/api/activity/assistance/email_invitation_url",
+    "language": "en-us",
+    "utm_source": "test_invitation",
+    "timeout": 15,
+    "headers": {}
+  },
+  "template": {
+    "path": "index_en.html"
+  },
+  "templates": {
+    "scholar_cn": {
+      "A": "index_scholar_cn_vA.html",
+      "B": "index_scholar_cn_vB.html"
+    }
+  },
+  "scholar_api": {
+    "base_url": "https://YOUR_SCHOLAR_API_HOST",
+    "web_base_url": "https://www.bohrium.com",
+    "path": "/api/v1/paper/scholar/paper",
+    "timeout": 20,
+    "random": 8,
+    "isShowCitationNum": true,
+    "sort_mapping": {
+      "latest": 1,
+      "highly_cited": 2
+    },
+    "headers": {}
+  }
+}
