@@ -6,8 +6,8 @@ Open-source toolkit for two scholar email strategies: a topic-driven Bohrium AI 
 
 This project helps teams build and test outbound emails for scholars with two different delivery strategies:
 
-- `classic`: generate a topic from scholar context and one paper title, then send a Bohrium AI Search share-link email.
-- `scholar`: fetch Bohrium scholar-page context and papers, then send a scholar-homepage email.
+- `classic`: generate a topic from scholar context and one paper title, then send a summary email of Bohrium SN Chat function.
+- `scholar`: fetch Bohrium scholar-page context and papers, then send a scholar-homepage email，with citations and h-index.
 
 ## Main Entrypoints
 
